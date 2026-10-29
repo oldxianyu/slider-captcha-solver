@@ -1,0 +1,7 @@
+name: slider_captcha_solver
+title: Slider Captcha Solver
+description: Identify a slider puzzle captcha provider, capture its background and piece images, find the gap with image matching, and drag it with a human-like trajectory. Covers NetEase YiDun and the Geetest differences that make a solver non-portable.
+include_in_prompt: true
+availability:
+  confidential_vm: true
+  needs_speech: false
