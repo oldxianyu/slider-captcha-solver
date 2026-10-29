@@ -17,6 +17,10 @@
 - `skill.yaml`：技能元数据。
 - `scripts/yidun_slider.py`：易盾适配器。离线自检：`python scripts/yidun_slider.py --selftest --bg bg.jpg --slice slice.png`。依赖：`numpy`、`pillow`，端到端运行还需要 `playwright`。
 
+## 另一种类型（已记录，未实测）
+
+极验 v4 的点选验证码（点文字/词语）不是滑块，解法也完全不同：走协议直连（load → 第三方打码平台识别坐标 → 加密组装 w 参数 → verify），不用浏览器拖动。`SKILL.md` 里有单独一节说明，标注为未实测，接入前需要自己的打码平台 Token 和目标站点自己的 captcha_id。
+
 ## 已验证的例子
 
 易盾，背景图 320×160，拼图块约 54×55：缺口在 x=230，得分 85.1，对下一个不同位置的 54.7 拉开明显，显示宽度 260 像素时拖动距离约 184 CSS 像素，实测一次拖动通过。
@@ -48,6 +52,10 @@ A reusable skill for solving slider puzzle captchas.
 - `SKILL.md`: the method, in full.
 - `skill.yaml`: skill metadata.
 - `scripts/yidun_slider.py`: YiDun adapter. Offline selftest: `python scripts/yidun_slider.py --selftest --bg bg.jpg --slice slice.png`. Dependencies: `numpy`, `pillow`, and `playwright` for end-to-end runs.
+
+## Another type (documented, not tested)
+
+Geetest v4 click captchas (click the characters/words) are not sliders and use a completely different method: pure protocol (load, third-party recognition service for coordinates, encrypted `w` payload, verify), with no browser drag. `SKILL.md` has a separate section for it, marked untested; it needs your own recognition-service token and the target site's own captcha_id.
 
 ## Verified example
 

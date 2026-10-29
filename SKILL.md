@@ -60,6 +60,14 @@
 
 ## Available connectors
 
+## Another provider and another method: Geetest v4 click captcha (protocol, untested)
+
+- The file at HK4567/helloworld `python/main.py` is not a slider solver at all. It targets Geetest v4 (`gcaptcha4.geetest.com`) in its word/click mode (`risk_type: word`, `je4_click`): the user clicks given characters or words in an image, in order. There is no piece and no gap to drag.
+- Its method is also different: pure protocol, no browser. It calls `/load` with a site-specific `captcha_id`, downloads the prompt and target images, sends them to a third-party recognition service (jfbym / 云码, type `31111`, needs the user's own paid token) to get click coordinates, converts coordinates to percentages, builds the proof-of-work fields (`pow_msg`, `pow_sign`), encrypts the payload into the `w` parameter (AES-CBC for the data, RSA for the key), and calls `/verify` directly.
+- Treat this as a separate adapter path, not an extension of the YiDun slider code: different provider, different captcha type, different solving strategy (outsourced recognition plus protocol verify instead of local image matching plus a browser drag).
+- Limits before anyone relies on it: the referenced code is stored flattened and will not run as-is, so it needs a rewrite; the `captcha_id` and several payload fields are site- and version-specific and break when Geetest changes them; the recognition step costs money per call at the third-party service; and this path is untested here. Do not hardcode anyone else's `captcha_id` or token, and do not present it as verified until it passes a live test on the target site.
+
+
 - [GitHub](/opt/hatch/connectors/github/CONNECTOR.md) for publishing this skill to a repository.
 
 - Use `muse.connector_search` to find other connectors and `muse.skill_search` to find related skills.
